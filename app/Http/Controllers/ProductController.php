@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 
+
 class ProductController extends Controller
 
 {
@@ -38,6 +39,11 @@ public function index(): View
 public function show(string $id) : View
     {   
         $viewData = [];
+
+        if (!isset(ProductController::$products[$id - 1])){
+            return view('home.index');
+        }
+
         $product = ProductController::$products[$id-1];
 
 
