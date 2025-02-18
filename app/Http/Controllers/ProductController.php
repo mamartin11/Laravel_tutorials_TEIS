@@ -71,6 +71,9 @@ public function save(Request $request)
         ]);
 
         dd($request->all());
+        $viewData["title"] = "Product Saved";
+
+        return view('product.save')->with("viewData",$viewData);;
 
         //here will be the code to call the model and save it to the database
     }    
