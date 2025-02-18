@@ -20,13 +20,18 @@
 
 <div class="card-body">
 
-<h5 class="card-title">
+<h5 class="card-title 
+                    @if($viewData["product"]["price"] > 100)
+                        text-danger  <!-- Clase para color rojo -->
+                    @endif
+                ">
 
 {{ $viewData["product"]["name"] }}
 
 </h5>
 
 <p class="card-text">{{ $viewData["product"]["description"] }}</p>
+<p class="card-text">{{ "$".$viewData["product"]["price"] . " USD" }}</p>
 
 </div>
 
