@@ -30,8 +30,13 @@
 
 </h5>
 
-<p class="card-text">{{ $viewData["product"]["description"] }}</p>
 <p class="card-text">{{ "$".$viewData["product"]["price"] . " USD" }}</p>
+
+@foreach($viewData["product"]->comments as $comment)
+
+- {{ $comment->getDescription() }}<br />
+
+@endforeach
 
 </div>
 

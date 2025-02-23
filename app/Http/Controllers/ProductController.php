@@ -8,20 +8,13 @@ use Illuminate\Http\Request;
 
 use Illuminate\View\View;
 
+use App\Models\Product;
+
 
 
 class ProductController extends Controller
 
 {
-
-    public static $products = [
-
-        ["id"=>"1", "name"=>"TV", "description"=>"Best TV", "price"=>700],
-        ["id"=>"2", "name"=>"iPhone", "description"=>"Best iPhone", "price"=>1100],
-        ["id"=>"3", "name"=>"Chromecast", "description"=>"Best Chromecast", "price"=>45],
-        ["id"=>"4", "name"=>"Glasses", "description"=>"Best Glasses", "price"=>255]
-];
-
 
 public function index(): View
 
@@ -30,7 +23,7 @@ public function index(): View
     $viewData = [];
     $viewData["title"] = "Products - Online Store";
     $viewData["subtitle"] = "List of products";
-    $viewData["products"] = ProductController::$products;
+    $viewData["products"] = Product::all();
     return view('product.index')->with("viewData", $viewData);
 
 }
@@ -40,11 +33,8 @@ public function show(string $id) : View
     {   
         $viewData = [];
 
-        if (!isset(ProductController::$products[$id - 1])){
-            return view('home.index');
-        }
 
-        $product = ProductController::$products[$id-1];
+        $product = Product::findOrFail($id);
 
 
         $viewData["title"] = $product["name"]." - Online Store";
@@ -62,7 +52,7 @@ public function create(): View
         return view('product.create')->with("viewData",$viewData);
     }
 
-public function save(Request $request)
+public function save(Request $request):\Illuminate\Http\RedirectResponse
     {
     
         $request->validate([
@@ -70,11 +60,8 @@ public function save(Request $request)
         "price" => "required|numeric|gt:0"
         ]);
 
-        dd($request->all());
-        $viewData["title"] = "Product Saved";
+        Product::create($request->only(["name","price"]));
 
-        return view('product.save')->with("viewData",$viewData);;
-
-        //here will be the code to call the model and save it to the database
+        return back();
     }    
 }
