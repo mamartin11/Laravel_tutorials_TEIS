@@ -1,22 +1,29 @@
 @extends('layouts.app')
 
-@section('title', 'Product Created')
+@section('title', $title)
+
+@section('subtitle', $subtitle)
 
 @section('content')
+
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Success</div>
-                <div class="card-body">
-                    @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
+
+<div class="row">
+
+<div class="col-lg-4 ms-auto">
+
+<p class="lead">{{ $description }}</p>
+
 </div>
+
+<div class="col-lg-4 me-auto">
+
+<p class="lead">{{ $author }}</p>
+
+</div>
+
+</div>
+
+</div>
+
 @endsection
